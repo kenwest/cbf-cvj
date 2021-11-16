@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<extension key="org.citybibleforum.cbf-cvj" type="module">
+  <file>cbf_cvj</file>
+  <name>CBF customer value journey</name>
+  <description>Implements code to support the CBF CVJ project</description>
+  <license>AGPL-3.0</license>
+  <maintainer>
+    <author>Ken West</author>
+    <email>ken.west@citybibleforum.org</email>
+  </maintainer>
+  <urls>
+    <url desc="Main Extension Page">http://FIXME</url>
+    <url desc="Documentation">http://FIXME</url>
+    <url desc="Support">http://FIXME</url>
+    <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
+  </urls>
+  <releaseDate>2021-11-12</releaseDate>
+  <version>1.0</version>
+  <develStage>alpha</develStage>
+  <compatibility>
+    <ver>5.0</ver>
+  </compatibility>
+  <comments>This is a new, unreleased module</comments>
+  <classloader>
+    <psr4 prefix="Civi\" path="Civi"/>
+  </classloader>
+  <civix>
+    <namespace>CRM/CbfCvj</namespace>
+  </civix>
+</extension>

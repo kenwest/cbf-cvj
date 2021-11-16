@@ -1,0 +1,7 @@
+[
+	{
+	  "name": "case_add_listed_supervisor",
+	  "label": "Add Supervisor from 'restricted to' Group to Case",
+	  "class_name": "CRM_CivirulesActions_Case_AddListedSupervisor"
+	}
+]
