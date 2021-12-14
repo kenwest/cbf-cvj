@@ -17,6 +17,16 @@ class CRM_CbfCvj_Upgrader extends CRM_CbfCvj_Upgrader_Base {
       $this->extensionDir . DIRECTORY_SEPARATOR . 'civirules_actions.json');
   }
 
+  public function upgrade_0001() {
+    $this->ctx->log->info('Applying update 0001');
+    if (!method_exists('CRM_Civirules_Utils_Upgrader', 'insertActionsFromJson')) {
+      throw new Exception('Method CRM_Civirules_Utils_Upgrader::insertActionsFromJson() not found. Is the CiviRules extension enabled?');
+    }
+    CRM_Civirules_Utils_Upgrader::insertActionsFromJson(
+      $this->extensionDir . DIRECTORY_SEPARATOR . 'civirules_actions.json');
+    return TRUE;
+  }
+
   /**
    * Example: Run an external SQL script when the module is installed.
    *
