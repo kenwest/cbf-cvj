@@ -1,7 +1,12 @@
 [
-	{
-	  "name": "case_add_listed_supervisor",
-	  "label": "Add Supervisor from 'restricted to' Group to Case",
-	  "class_name": "CRM_CivirulesActions_Case_AddListedSupervisor"
-	}
+  {
+    "name": "case_add_listed_supervisor",
+    "label": "Add Supervisor from 'restricted to' Group to Case",
+    "class_name": "CRM_CivirulesActions_Case_AddListedSupervisor"
+  },
+  {
+    "name": "case_create_from_activity",
+    "label": "Create Case from an Activity",
+    "class_name": "CRM_CivirulesActions_Case_CreateFromActivity"
+  }
 ]
