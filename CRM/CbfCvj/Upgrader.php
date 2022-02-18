@@ -10,11 +10,35 @@ class CRM_CbfCvj_Upgrader extends CRM_CbfCvj_Upgrader_Base {
   // upgrade tasks. They are executed in order (like Drupal's hook_update_N).
 
   public function install() {
+    self::insertActionsFromJson();
+  }
+
+  /*
+   * See https://docs.civicrm.org/civirules/en/latest/create-your-own-action/#alternative-method-json-file-since-civirules-29
+   *
+   * For upgrades:
+   * I've got a feeling there should be a better way to process updates made to
+   * civirules_actions.json file because the CiviRules extension itself only
+   * processes the json file on installation; and though actions get added to
+   * its json file, that extension's upgrade function use the SQL insert
+   * method.
+   */
+  protected function insertActionsFromJson() {
     if (!method_exists('CRM_Civirules_Utils_Upgrader', 'insertActionsFromJson')) {
       throw new Exception('Method CRM_Civirules_Utils_Upgrader::insertActionsFromJson() not found. Is the CiviRules extension enabled?');
     }
     CRM_Civirules_Utils_Upgrader::insertActionsFromJson(
       $this->extensionDir . DIRECTORY_SEPARATOR . 'civirules_actions.json');
+  }
+
+  /*
+   * Add class CRM_CivirulesActions_Case_CreateFromActivity
+   */
+  public function upgrade_1000() {
+    $this->ctx->log->info('Applying update 1000');
+    $this->ctx->log->info('Add class CRM_CivirulesActions_Case_CreateFromActivity');
+    self::insertActionsFromJson();
+    return true;
   }
 
   /**
