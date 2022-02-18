@@ -27,11 +27,13 @@ class CRM_CivirulesActions_Case_AddListedSupervisor extends CRM_Civirules_Action
     try {
       $triggerCase = $trigger->getEntityData('Case');
       if (!$triggerCase) {
+        CRM_Core_Error::debug_var('Civirules Action: Case add listed supervisor: triggered without a Case', $trigger);
         return; // there is no case
       }
       $contacts = $triggerCase['contacts'] ?? [];
       foreach ($contacts as $contact) {
         if (stristr($contact['role'], 'Supervisor') !== false) {
+          CRM_Core_Error::debug_var('Civirules Action: Case add listed supervisor: this Case already has a supervisor', $trigger);
           return; // a light-weight test that the Case already has a Supervisor
         }
       }
@@ -54,10 +56,12 @@ class CRM_CivirulesActions_Case_AddListedSupervisor extends CRM_Civirules_Action
       foreach ($cases as $case) {
         $client = $case['client'][0]['contact_id'] ?? 0;
         if (!$client) {
+          CRM_Core_Error::debug_var('Civirules Action: Case add listed supervisor: this Case has no Client so supervisor role cannot be added', $trigger);
           return; // unusual but there's no client for this case
         }
         foreach ($case['roles'] as $role) {
           if (stristr($role['relationship_type_id.label_a_b'], 'Supervisor') !== false) {
+            CRM_Core_Error::debug_var('Civirules Action: Case add listed supervisor: this Case already has a supervisor', $trigger);
             return; // a heavy-weight test that the Case already has a Supervisor
           }
         }
@@ -85,7 +89,7 @@ class CRM_CivirulesActions_Case_AddListedSupervisor extends CRM_Civirules_Action
               ->addValue('case_id', $case['id'])
               ->addValue('start_date', date('Y-m-d'))
               ->addValue('is_active', true)
-              ->addValue('description', "Created by Civirules Action 'Case add listed supervisor'")
+              ->addValue('description', "This case role created by Civirules Action 'Case add listed supervisor'")
               ->execute();
             foreach ($results as $result) {
               CRM_Core_Error::debug_var('Civirules Action: Case add listed supervisor: added role', $result);
